@@ -13,26 +13,30 @@
             <h1>Yeni Kulüp Kurulumu</h1>
             <p>Menajerlik kariyerine başlamak için kulübünün temel bilgilerini gir.</p>
             
-            <div class="form-group">
+            <div class="form-group logo-group">
                 <h2>Kulüp Logosu Seç</h2>
                 <div id="logo-selection">
                     </div>
             </div>
 
             <form id="team-form">
-                <div class="input-group">
-                    <label for="team-name">Kulüp Adı:</label>
-                    <input type="text" id="team-name" required maxlength="30" placeholder="Örn: Kartallar SK">
-                </div>
-                
-                <div class="input-group short-input">
-                    <label for="team-abbr">Kısaltma (3 harf):</label>
-                    <input type="text" id="team-abbr" required maxlength="3" pattern="[A-Z]{3}" title="3 büyük harf (Örn: FEN)">
+                <div class="input-row">
+                    <div class="input-group full-width">
+                        <label for="team-name">Kulüp Adı:</label>
+                        <input type="text" id="team-name" required maxlength="30" placeholder="Örn: Kartallar SK">
+                    </div>
                 </div>
 
-                <div class="input-group">
-                    <label for="president-name">Başkan Adı (Sizin Adınız):</label>
-                    <input type="text" id="president-name" required maxlength="30" placeholder="Örn: Ali Yılmaz">
+                <div class="input-row three-col">
+                    <div class="input-group">
+                        <label for="team-abbr">Kısaltma (3 harf):</label>
+                        <input type="text" id="team-abbr" required maxlength="3" pattern="[A-Z]{3}" title="3 büyük harf (Örn: FEN)">
+                    </div>
+                    
+                    <div class="input-group two-thirds">
+                        <label for="president-name">Başkan Adı (Sizin Adınız):</label>
+                        <input type="text" id="president-name" required maxlength="30" placeholder="Örn: Ali Yılmaz">
+                    </div>
                 </div>
 
                 <button type="submit" class="submit-button">Kulübü Kur ve Yönetime Başla</button>
