@@ -1,4 +1,4 @@
-// Hazır logolar (Aynı kaldı)
+// Hazır logolar
 const logos = [
     { id: 'L1', color: '#e74c3c', text: 'KRM' }, 
     { id: 'L2', color: '#3498db', text: 'MAV' }, 
@@ -9,7 +9,7 @@ const logos = [
 
 let selectedLogoId = logos[0].id; 
 
-// Logoları HTML'e yükle (Aynı kaldı)
+// Logoları HTML'e yükle
 function loadLogos() {
     const logoContainer = document.getElementById('logo-selection');
     logoContainer.innerHTML = ''; 
@@ -22,6 +22,7 @@ function loadLogos() {
         div.innerText = logo.text;
         div.dataset.logoId = logo.id;
 
+        // Tıklama olayı
         div.addEventListener('click', () => {
             document.querySelectorAll('.logo-option').forEach(el => el.classList.remove('selected'));
             div.classList.add('selected');
@@ -31,6 +32,7 @@ function loadLogos() {
         logoContainer.appendChild(div);
     });
 
+    // İlk logoyu varsayılan olarak seç
     document.getElementById(`logo-${selectedLogoId}`).classList.add('selected');
 }
 
@@ -43,10 +45,9 @@ document.getElementById('team-form').addEventListener('submit', async function(e
     const presidentName = document.getElementById('president-name').value.trim();
 
     const submitBtn = this.querySelector('.submit-button');
-    submitBtn.textContent = 'Kuruluyor...';
+    submitBtn.textContent = 'Kuruluyor... Lütfen Bekleyin';
     submitBtn.disabled = true;
 
-    // Oyuncuların yetenekleri ve durumları burada belirlenir
     const players = generateDefaultPlayers();
 
     const newTeamData = {
@@ -55,8 +56,9 @@ document.getElementById('team-form').addEventListener('submit', async function(e
         president: presidentName,
         logoId: selectedLogoId,
         money: 1000000, 
-        currentYear: 1, // Yeni Eklendi
-        currentWeek: 1, // Yeni Eklendi
+        currentYear: 1, 
+        currentWeek: 1, 
+        seasonYear: "2025/26",
         players: players,
         isUserTeam: true,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -64,20 +66,21 @@ document.getElementById('team-form').addEventListener('submit', async function(e
 
     try {
         await db.collection("teams").doc(USER_TEAM_DOC).set(newTeamData);
-        console.log("Takım başarıyla kaydedildi!");
+        console.log("Takım başarıyla kaydedildi! Yönetim ekranına geçiliyor.");
 
         document.getElementById('team-creation-screen').classList.remove('active');
         startGame(newTeamData); // Yönetim ekranına geçişi tetikler
 
     } catch (error) {
-        console.error("Takım kaydı sırasında hata:", error);
-        alert("Takım kaydedilemedi: " + error.message);
+        console.error("Takım kaydı sırasında veya başlatılırken hata:", error);
+        alert("Takım kaydedilemedi veya başlatılamadı: " + error.message);
+        
         submitBtn.textContent = 'Kulübü Kur ve Yönetime Başla';
         submitBtn.disabled = false;
     }
 });
 
-// Oyuncu Yeteneklerini Üretme Fonksiyonu (Yorgunluk ekledim)
+// Oyuncu Yeteneklerini Üretme Fonksiyonu
 function generateDefaultPlayers() {
     const positions = { GK: 1, DEF: 4, MID: 4, ATT: 2 };
     let players = [];
@@ -101,9 +104,9 @@ function generateDefaultPlayers() {
                 position: pos,
                 overall: overall,
                 skills: { passing, shooting, dribbling, defending },
-                condition: 100, // Maç öncesi kondisyon (Yorulma seviyesi)
-                isInjured: false, // Yeni Eklendi
-                cardStatus: null // Yeni Eklendi (Sarı/Kırmızı)
+                condition: 100, 
+                isInjured: false, 
+                cardStatus: null 
             });
             number++;
         }
