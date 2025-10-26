@@ -40,15 +40,80 @@
         </div>
     </div>
 
-    <div id="game-screen" class="screen">
+    <div id="manager-screen" class="screen">
         <header id="game-header">
-            <span id="user-team-name"></span>
-            <span id="money-display"></span>
-            <span id="match-button" class="btn">Maça Çık</span>
+            <span id="user-team-name-manager"></span>
+            <span id="money-display-manager"></span>
+            <div id="management-status">
+                <span id="date-display">Yıl 1 (2025/26) - Hafta 1</span>
+                <button id="simulate-week-btn" class="btn next-btn">Haftayı Geç / Maça Çık</button>
+            </div>
         </header>
         
-        <main id="main-content">
-            <h2>Haftalık Maç Simülasyonu</h2>
+        <div id="manager-content">
+            <div id="main-column">
+                
+                <div class="info-card next-match-card">
+                    <h2>Sıradaki Karşılaşma</h2>
+                    <div id="next-match-details" class="match-details-rect">
+                        <p id="match-type">Hazırlık Maçı</p>
+                        <p id="match-teams">TAKIMINIZ vs Rakip Takım</p>
+                        <p id="match-date">2. Hafta</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h2>HABERLER & TRANSFERLER</h2>
+                    <div id="transfer-feed">
+                        <p>Gelen/Giden Transferler ve Lig Haberleri burada gösterilecek.</p>
+                        <p>Transfer Penceresi Açıldı!</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h2>Takvim</h2>
+                    <div id="calendar-view">
+                        <p>Aylık maç takvimi buraya gelecek.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="side-menu-column">
+                
+                <div class="management-section info-card">
+                    <h2>TAKTİK & KADRO YÖNETİMİ</h2>
+                    <div id="squad-management">
+                        <p>Diziliş: <span id="current-formation">4-4-2</span></p>
+                        <p>İlk 11 Ayarlama, Forma Numaraları, Oyuncu Detayları.</p>
+                        <p>Oyuncu Durumları (Yorgunluk, Sakatlık, Kartlar) buraya gelecek.</p>
+                        
+                        <div class="tactic-settings">
+                            <label>Basınç/Pres: <span id="pressure-level">Orta</span></label>
+                            <label>Zihniyet: <span id="mentality-level">Dengeli</span></label>
+                            <label>Ofsayt Tuzağı: <span id="offsides-trap">Kapalı</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="management-section info-card">
+                    <h2>KULÜP & YÖNETİM</h2>
+                    <ul id="club-menus">
+                        <li><a href="#" class="menu-item">Lig Bilgisi / Puan Durumu</a></li>
+                        <li><a href="#" class="menu-item">Kupa Odası / Başarılar</a></li>
+                        <li><a href="#" class="menu-item">Yönetici İstatistikleri</a></li>
+                        <li><a href="#" class="menu-item">Antrenman Programı</a></li>
+                        <li><a href="#" class="menu-item">Yetenek Avcıları (Scouting)</a></li>
+                        <li><a href="#" class="menu-item">Oyuncu Rolleri</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="game-screen" class="screen">
+        <header id="match-header">
+            <button id="back-to-manager" class="btn back-btn">Geri</button>
             <div id="match-info-box">
                  <span id="home-team-abbr" class="team-abbr"></span>
                  <span id="home-score" class="score">0</span> 
@@ -57,11 +122,12 @@
                  <span id="away-team-abbr" class="team-abbr"></span>
                  <span id="match-time" class="time">00:00</span>
             </div>
-            
+        </header>
+        
+        <main id="match-content">
             <div id="pitch-container">
                 <canvas id="game-canvas" width="800" height="500"></canvas>
             </div>
-            
             <h3>Maç Günlüğü</h3>
             <div id="game-log">
                 </div>
