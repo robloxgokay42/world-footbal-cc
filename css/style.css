@@ -1,0 +1,81 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.screen {
+    max-width: 850px;
+    width: 100%;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    display: none; /* Varsayılan olarak tüm ekranlar gizli */
+}
+
+.screen.active {
+    display: block; /* Aktif ekranı göster */
+}
+
+/* --- Takım Kurma Stilleri --- */
+#logo-selection {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.logo-option {
+    width: 80px;
+    height: 80px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    background-color: #34495e; /* Varsayılan logo rengi */
+}
+
+.logo-option.selected {
+    border-color: #e74c3c;
+    box-shadow: 0 0 10px #e74c3c;
+}
+
+/* --- Oyun Alanı Stilleri --- */
+#pitch-container {
+    border: 5px solid #27ae60;
+    background-color: #2ecc71; /* Saha yeşili */
+    margin-top: 10px;
+    position: relative;
+    border-radius: 5px;
+}
+
+#game-canvas {
+    display: block; /* Canvas'ı div içine sığdır */
+}
+
+#match-info {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#game-log {
+    height: 100px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    background: #ecf0f1;
+    font-size: 14px;
+}
