@@ -1,18 +1,18 @@
-// Hazır logolar (basit renk ve metin temsili)
+// Hazır logolar (Aynı kaldı)
 const logos = [
-    { id: 'L1', color: '#e74c3c', text: 'KRM' }, // Kırmızı
-    { id: 'L2', color: '#3498db', text: 'MAV' }, // Mavi
-    { id: 'L3', color: '#2ecc71', text: 'YŞL' }, // Yeşil
-    { id: 'L4', color: '#f1c40f', text: 'SRI' }, // Sarı
-    { id: 'L5', color: '#9b59b6', text: 'MOR' }  // Mor
+    { id: 'L1', color: '#e74c3c', text: 'KRM' }, 
+    { id: 'L2', color: '#3498db', text: 'MAV' }, 
+    { id: 'L3', color: '#2ecc71', text: 'YŞL' }, 
+    { id: 'L4', color: '#f1c40f', text: 'SRI' }, 
+    { id: 'L5', color: '#9b59b6', text: 'MOR' }  
 ];
 
-let selectedLogoId = logos[0].id; // Varsayılan olarak ilk logoyu seç
+let selectedLogoId = logos[0].id; 
 
-// Logoları HTML'e yükle
+// Logoları HTML'e yükle (Aynı kaldı)
 function loadLogos() {
     const logoContainer = document.getElementById('logo-selection');
-    logoContainer.innerHTML = ''; // İçeriği temizle
+    logoContainer.innerHTML = ''; 
 
     logos.forEach(logo => {
         const div = document.createElement('div');
@@ -22,7 +22,6 @@ function loadLogos() {
         div.innerText = logo.text;
         div.dataset.logoId = logo.id;
 
-        // Tıklama olayı
         div.addEventListener('click', () => {
             document.querySelectorAll('.logo-option').forEach(el => el.classList.remove('selected'));
             div.classList.add('selected');
@@ -32,7 +31,6 @@ function loadLogos() {
         logoContainer.appendChild(div);
     });
 
-    // İlk logoyu varsayılan olarak seç
     document.getElementById(`logo-${selectedLogoId}`).classList.add('selected');
 }
 
@@ -44,11 +42,12 @@ document.getElementById('team-form').addEventListener('submit', async function(e
     const teamAbbr = document.getElementById('team-abbr').value.toUpperCase().trim();
     const presidentName = document.getElementById('president-name').value.trim();
 
-    // Butonu devre dışı bırak
     const submitBtn = this.querySelector('.submit-button');
     submitBtn.textContent = 'Kuruluyor...';
     submitBtn.disabled = true;
 
+    // Oyuncuların yetenekleri ve durumları burada belirlenir
+    const players = generateDefaultPlayers();
 
     const newTeamData = {
         name: teamName,
@@ -56,19 +55,19 @@ document.getElementById('team-form').addEventListener('submit', async function(e
         president: presidentName,
         logoId: selectedLogoId,
         money: 1000000, 
-        players: generateDefaultPlayers(),
+        currentYear: 1, // Yeni Eklendi
+        currentWeek: 1, // Yeni Eklendi
+        players: players,
         isUserTeam: true,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
     };
 
     try {
-        // Firebase'e kaydetme
         await db.collection("teams").doc(USER_TEAM_DOC).set(newTeamData);
         console.log("Takım başarıyla kaydedildi!");
 
-        // Ekranı değiştir ve oyunu başlat (firebase-config.js'deki fonksiyon)
         document.getElementById('team-creation-screen').classList.remove('active');
-        startGame(newTeamData); // <--- startGame çağrısı!
+        startGame(newTeamData); // Yönetim ekranına geçişi tetikler
 
     } catch (error) {
         console.error("Takım kaydı sırasında hata:", error);
@@ -78,29 +77,22 @@ document.getElementById('team-form').addEventListener('submit', async function(e
     }
 });
 
-// Oyuncu Yeteneklerini Üretme Fonksiyonu (team-creation.js içinde tutuldu)
+// Oyuncu Yeteneklerini Üretme Fonksiyonu (Yorgunluk ekledim)
 function generateDefaultPlayers() {
-    const positions = {
-        GK: 1, DEF: 4, MID: 4, ATT: 2
-    };
-    
+    const positions = { GK: 1, DEF: 4, MID: 4, ATT: 2 };
     let players = [];
     let number = 1;
 
     for (const pos in positions) {
         for (let i = 0; i < positions[pos]; i++) {
-            // Yetenekler (50-100 arası rastgele)
-            const passing = Math.floor(Math.random() * 50) + 50;
+            const passing = Math.floor(Math.random() * 50) + 50; 
             const shooting = Math.floor(Math.random() * 50) + 50;
             const dribbling = Math.floor(Math.random() * 50) + 50;
             const defending = Math.floor(Math.random() * 50) + 50;
             
             let overall;
-            if (pos === 'GK') {
-                overall = Math.round((defending + 75) / 2); // GK için daha basit ortalama
-            } else {
-                overall = Math.round((passing + shooting + dribbling + defending) / 4);
-            }
+            if (pos === 'GK') { overall = Math.round((defending + 75) / 2); } 
+            else { overall = Math.round((passing + shooting + dribbling + defending) / 4); }
 
             players.push({
                 id: `P${number}`,
@@ -109,7 +101,9 @@ function generateDefaultPlayers() {
                 position: pos,
                 overall: overall,
                 skills: { passing, shooting, dribbling, defending },
-                condition: 100
+                condition: 100, // Maç öncesi kondisyon (Yorulma seviyesi)
+                isInjured: false, // Yeni Eklendi
+                cardStatus: null // Yeni Eklendi (Sarı/Kırmızı)
             });
             number++;
         }
@@ -117,5 +111,4 @@ function generateDefaultPlayers() {
     return players;
 }
 
-// Sayfa yüklendiğinde logoları yükle
 document.addEventListener('DOMContentLoaded', loadLogos);
