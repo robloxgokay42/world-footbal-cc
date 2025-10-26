@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Soccer Champs - 2D</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="team-creation-screen" class="screen active">
+        <h1>Yeni Takım Kur</h1>
+        <div id="logo-selection">
+            <h2>Logo Seç</h2>
+            </div>
+        <form id="team-form">
+            <label for="team-name">Takım Adı:</label>
+            <input type="text" id="team-name" required maxlength="30">
+            
+            <label for="team-abbr">Kısaltma (3 harf):</label>
+            <input type="text" id="team-abbr" required maxlength="3" pattern="[A-Z]{3}" title="3 büyük harf">
+
+            <label for="president-name">Başkan Adı:</label>
+            <input type="text" id="president-name" required maxlength="30">
+
+            <button type="submit">Takımı Kur ve Oyuna Başla</button>
+        </form>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div id="match-info">
+            <span id="home-score">0</span> - <span id="away-score">0</span> | 
+            <span id="match-time">00:00</span>
+        </div>
+        <div id="pitch-container">
+            <canvas id="game-canvas" width="800" height="500"></canvas>
+        </div>
+        <div id="game-log">
+            </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    
+    <script src="js/firebase-config.js"></script>
+    <script src="js/game-engine.js"></script>
+    <script src="js/team-creation.js"></script>
+</body>
+</html>
