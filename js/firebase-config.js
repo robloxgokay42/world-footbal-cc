@@ -1,4 +1,4 @@
-// Firebase Configuration (Aynı bırakıldı)
+// Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyCJZ8wfBl4YdpRT90__qknzQhDjpPFq2ho",
     authDomain: "world-footbal-cc.firebaseapp.com",
@@ -26,7 +26,7 @@ async function checkAndLoadTeam() {
 
         if (doc.exists) {
             console.log("Kayıtlı takım bulundu. Oyunu Başlatılıyor...");
-            // Eğer kayıtlı takım varsa, doğrudan oyunu başlat
+            // Eğer kayıtlı takım varsa, doğrudan yönetim ekranını başlat
             startGame(doc.data());
         } else {
             console.log("Kayıtlı takım yok. Takım kurma ekranı açılıyor.");
