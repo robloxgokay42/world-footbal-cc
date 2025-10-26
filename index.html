@@ -3,40 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>World Soccer Champs - 2D</title>
+    <title>World Soccer Champs - Yönetim Simülasyonu</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <div id="team-creation-screen" class="screen active">
-        <h1>Yeni Takım Kur</h1>
-        <div id="logo-selection">
-            <h2>Logo Seç</h2>
-            </div>
-        <form id="team-form">
-            <label for="team-name">Takım Adı:</label>
-            <input type="text" id="team-name" required maxlength="30">
+    <div id="team-creation-screen" class="screen">
+        <div class="card">
+            <h1>Yeni Kulüp Kurulumu</h1>
+            <p>Menajerlik kariyerine başlamak için kulübünün temel bilgilerini gir.</p>
             
-            <label for="team-abbr">Kısaltma (3 harf):</label>
-            <input type="text" id="team-abbr" required maxlength="3" pattern="[A-Z]{3}" title="3 büyük harf">
+            <div class="form-group">
+                <h2>Kulüp Logosu Seç</h2>
+                <div id="logo-selection">
+                    </div>
+            </div>
 
-            <label for="president-name">Başkan Adı:</label>
-            <input type="text" id="president-name" required maxlength="30">
+            <form id="team-form">
+                <div class="input-group">
+                    <label for="team-name">Kulüp Adı:</label>
+                    <input type="text" id="team-name" required maxlength="30" placeholder="Örn: Kartallar SK">
+                </div>
+                
+                <div class="input-group short-input">
+                    <label for="team-abbr">Kısaltma (3 harf):</label>
+                    <input type="text" id="team-abbr" required maxlength="3" pattern="[A-Z]{3}" title="3 büyük harf (Örn: FEN)">
+                </div>
 
-            <button type="submit">Takımı Kur ve Oyuna Başla</button>
-        </form>
+                <div class="input-group">
+                    <label for="president-name">Başkan Adı (Sizin Adınız):</label>
+                    <input type="text" id="president-name" required maxlength="30" placeholder="Örn: Ali Yılmaz">
+                </div>
+
+                <button type="submit" class="submit-button">Kulübü Kur ve Yönetime Başla</button>
+            </form>
+        </div>
     </div>
 
     <div id="game-screen" class="screen">
-        <div id="match-info">
-            <span id="home-score">0</span> - <span id="away-score">0</span> | 
-            <span id="match-time">00:00</span>
-        </div>
-        <div id="pitch-container">
-            <canvas id="game-canvas" width="800" height="500"></canvas>
-        </div>
-        <div id="game-log">
+        <header id="game-header">
+            <span id="user-team-name"></span>
+            <span id="money-display"></span>
+            <span id="match-button" class="btn">Maça Çık</span>
+        </header>
+        
+        <main id="main-content">
+            <h2>Haftalık Maç Simülasyonu</h2>
+            <div id="match-info-box">
+                 <span id="home-team-abbr" class="team-abbr"></span>
+                 <span id="home-score" class="score">0</span> 
+                 <span class="vs">VS</span> 
+                 <span id="away-score" class="score">0</span>
+                 <span id="away-team-abbr" class="team-abbr"></span>
+                 <span id="match-time" class="time">00:00</span>
             </div>
+            
+            <div id="pitch-container">
+                <canvas id="game-canvas" width="800" height="500"></canvas>
+            </div>
+            
+            <h3>Maç Günlüğü</h3>
+            <div id="game-log">
+                </div>
+        </main>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
